@@ -7,6 +7,8 @@ screen = pygame.display.set_mode((500, 500))
 icon = pygame.image.load("Gem.png")
 pygame.display.set_caption("Garden Wars")
 pygame.display.set_icon(icon)
+clock = pygame.time.Clock()
+
 
 #Player
 player = pygame.image.load("Player.png")
@@ -112,8 +114,8 @@ high_scores = score
 
 
 
-mixer.music.load("Background.mp3")
-mixer.music.play(-1)
+# mixer.music.load("Background.mp3")
+# mixer.music.play(-1)
 
 def Player():
     screen.blit(player,(playerX, playerY))
@@ -185,9 +187,9 @@ def Over2():
 
 
 
-
+bomb = mixer.Sound("Bomb.wav")
 while True:
-   screen.fill((0, 150, 0))
+   #screen.fill((0, 150, 0))
 
 
 
@@ -196,17 +198,17 @@ while True:
 
    for event in pygame.event.get():
        if event.type == pygame.QUIT:
-           pygame.QUIT()
+           pygame.quit()
 
 
        if event.type == pygame.KEYDOWN:
            if event.key == pygame.K_LEFT and u == 2:
-               X_Change =  -0.9
+               X_Change =  -2
                hintY = 1000
                f = 2
                titleX = 1000
            if event.key == pygame.K_RIGHT and u == 2:
-               X_Change = 0.9
+               X_Change = 2
                hintY = 1000
                f = 2
                titleX = 1000
@@ -467,7 +469,7 @@ while True:
        v = 2
        playerY = 10000000
        bulletY = playerY
-       bomb = mixer.Sound("Bomb.wav")
+       
        overY2 = 20
        bomb.play()
 
@@ -475,21 +477,7 @@ while True:
 
 
 
-
-
-   if score >= 25:
-        background_change = 1
-        background_change2 = 1
-
-   if score >= 50:
-       c = 2
-       background_change3 = 1
-
-   if background2Y >= 0 and c == 1:
-       background2Y = 0
-
-   if background3Y >= 0:
-       background3Y = 0
+   Background()
 
    if score >= 75 and e == 1:
        jackY = 0
@@ -542,9 +530,7 @@ while True:
 
 
 
-   Background()
-   Background2()
-   Background3()
+
    Bullet()
    Gem()
    Player()
@@ -566,3 +552,6 @@ while True:
 
 
    pygame.display.update()
+   clock.tick(120)
+
+pygame.quit()
